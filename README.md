@@ -6,7 +6,7 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/ssntpl/laravel-files/Check%20&%20fix%20styling?label=code%20style)](https://github.com/ssntpl/laravel-files/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/ssntpl/laravel-files.svg?style=flat-square)](https://packagist.org/packages/ssntpl/laravel-files)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+This is a simple package to associate files with your eloquent model in laravel. 
 
 ## Installation
 
@@ -190,7 +190,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Sambhav Aggarwal](https://github.com/ssntpl)
+- [Sam](https://github.com/ssntpl)
 - [All Contributors](../../contributors)
 
 ## License
