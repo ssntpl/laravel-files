@@ -6,7 +6,6 @@ use Illuminate\Support\ServiceProvider;
 
 class LaravelFilesServiceProvider extends ServiceProvider
 {
-
     /**
      * Register any application services.
      *
@@ -29,11 +28,10 @@ class LaravelFilesServiceProvider extends ServiceProvider
         ], 'laravel-files-config');
 
         $this->publishes([
-            __DIR__ . '/../database/migrations/' => database_path('migrations')
+            __DIR__ . '/../database/migrations/' => database_path('migrations'),
         ], 'laravel-files-migrations');
 
 
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
-
 }

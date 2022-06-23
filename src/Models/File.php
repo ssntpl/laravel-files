@@ -2,12 +2,12 @@
 
 namespace Ssntpl\LaravelFiles\Models;
 
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class File extends Model
 {
-    const TYPE_DEFAULT = 'default';
+    public const TYPE_DEFAULT = 'default';
 
     /**
      * The attributes that should be hidden for arrays.
