@@ -5,23 +5,33 @@ namespace Ssntpl\LaravelFiles\Traits;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Ssntpl\LaravelFiles\Models\File;
+use Exception;
 
 /**
  * Adds
  */
 trait HasFiles
 {
+    public function files()
+    {
+        return $this->morphMany(File::class, 'owner');
+    }
+
     public function createFile(array $attributes = [])
     {
-        // Use 'default' if $attributes['type'] is missing.
+        // Throw exception if $attributes['type'] is missing.
         if (empty($attributes['type'])) {
-            $attributes['type'] = $this->default_file_type;
+            if (defined(get_class($this) . '::FILE_TYPE_DEFAULT')) {
+                $attributes['type'] = get_class($this)::FILE_TYPE_DEFAULT;
+            } else {
+                throw new Exception('Cannot create file. File `type` is missing.');
+            }
         }
 
         // Find file prefix
         $file_prefix = null;
         $model = $this;
-        while (! $file_prefix) {
+        while (!$file_prefix) {
             if (method_exists($model, 'getFilePrefixAttribute')) {
                 $file_prefix = $model->getFilePrefixAttribute();
             } elseif (isset($model->file_prefix)) {
@@ -53,56 +63,31 @@ trait HasFiles
 
         $storage = Storage::disk($attributes['disk']);
 
-        if (! empty($attributes['base64'])) {
+        if (!empty($attributes['base64'])) {
             $attributes['contents'] = base64_decode($attributes['base64']);
         }
 
-        if (! empty($attributes['contents'])) {
+        if (!empty($attributes['contents'])) {
             $storage->put($attributes['key'], $attributes['contents']);
-            $attributes['checksum'] = hash(config('files.checksum', 'md5'), ($attributes['contents']));
+            $attributes['checksum'] = hash(config('files.checksum', 'md5'), $attributes['contents']);
         }
 
         $file_attributes = [];
 
         foreach (['type', 'name', 'title', 'checksum'] as $field) {
-            if (! empty($attributes[$field])) {
+            if (!empty($attributes[$field])) {
                 $file_attributes[$field] = $attributes[$field];
             }
         }
 
         return $this->files()->updateOrCreate([
             'disk' => $attributes['disk'],
-            'key' => $attributes['key'],
-        ], $attributes);
-    }
-
-    public function files($type = null)
-    {
-        if ($type) {
-            return $this->morphMany(File::class, 'owner')->whereType($type);
-        }
-
-        return $this->morphMany(File::class, 'owner');
-    }
-
-    public function file($type = null)
-    {
-        $type = $type ?: $this->default_file_type;
-
-        return $this->morphOne(File::class, 'owner')->whereType($type)->sole();
+            'key' => $attributes['key']
+        ], $file_attributes);
     }
 
     public function getFileAttribute()
     {
-        return $this->files($this->default_file_type)->sole();
-    }
-
-    public function getDefaultFileTypeAttribute()
-    {
-        if (defined(get_class($this) . '::FILE_TYPE_DEFAULT')) {
-            return get_class($this)::FILE_TYPE_DEFAULT;
-        }
-
-        return config('files.model', 'Ssntpl\LaravelFiles\Models\File')::TYPE_DEFAULT;
+        return $this->files()->first();
     }
 }

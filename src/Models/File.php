@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class File extends Model
 {
-    public const TYPE_DEFAULT = 'default';
+    const TYPE_DEFAULT = 'default_file_type';
 
     /**
      * The attributes that should be hidden for arrays.
@@ -71,5 +71,12 @@ class File extends Model
     public function __toString()
     {
         return $this->url;
+    }
+
+    public function delete()
+    {
+        Storage::disk($this->disk)->delete($this->key);
+
+        return parent::delete();
     }
 }
