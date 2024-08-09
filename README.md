@@ -178,6 +178,10 @@ composer test
 
 ## TODO
 - [ ] Declare the `Ssntpl\LaravelFiles\Contracts\File` contract
+- [ ] Add option to define default disk for every model
+- [ ] Add path() method that returns the full path of the file
+- [ ] Make File model sub-class of `Illuminate\Http\File` and see if all the methods work fine.
+- [ ] See if destroy/delete method can be modified in trait to handle the file objects
 
 ## Changelog
 
