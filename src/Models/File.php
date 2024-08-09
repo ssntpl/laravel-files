@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class File extends Model
 {
-    const TYPE_DEFAULT = 'default_file_type';
+    public const TYPE_DEFAULT = 'default_file_type';
 
     /**
      * The attributes that should be hidden for arrays.

@@ -2,10 +2,10 @@
 
 namespace Ssntpl\LaravelFiles\Traits;
 
+use Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Ssntpl\LaravelFiles\Models\File;
-use Exception;
 
 /**
  * Adds
@@ -31,7 +31,7 @@ trait HasFiles
         // Find file prefix
         $file_prefix = null;
         $model = $this;
-        while (!$file_prefix) {
+        while (! $file_prefix) {
             if (method_exists($model, 'getFilePrefixAttribute')) {
                 $file_prefix = $model->getFilePrefixAttribute();
             } elseif (isset($model->file_prefix)) {
@@ -63,11 +63,11 @@ trait HasFiles
 
         $storage = Storage::disk($attributes['disk']);
 
-        if (!empty($attributes['base64'])) {
+        if (! empty($attributes['base64'])) {
             $attributes['contents'] = base64_decode($attributes['base64']);
         }
 
-        if (!empty($attributes['contents'])) {
+        if (! empty($attributes['contents'])) {
             $storage->put($attributes['key'], $attributes['contents']);
             $attributes['checksum'] = hash(config('files.checksum', 'md5'), $attributes['contents']);
         }
@@ -75,14 +75,14 @@ trait HasFiles
         $file_attributes = [];
 
         foreach (['type', 'name', 'title', 'checksum'] as $field) {
-            if (!empty($attributes[$field])) {
+            if (! empty($attributes[$field])) {
                 $file_attributes[$field] = $attributes[$field];
             }
         }
 
         return $this->files()->updateOrCreate([
             'disk' => $attributes['disk'],
-            'key' => $attributes['key']
+            'key' => $attributes['key'],
         ], $file_attributes);
     }
 
