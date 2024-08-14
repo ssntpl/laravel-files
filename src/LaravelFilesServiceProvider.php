@@ -3,6 +3,7 @@
 namespace Ssntpl\LaravelFiles;
 
 use Illuminate\Support\ServiceProvider;
+use Ssntpl\LaravelFiles\Cloud\CloudAdapter;
 
 class LaravelFilesServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,10 @@ class LaravelFilesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        \Storage::extend('cloud', function ($app, $config) {
+            return new CloudAdapter($config['cache_disk'], $config['remote_disks']);
+        });
+
         $this->publishes([
             __DIR__ . "/../config/files.php" => config_path("files.php"),
         ], 'laravel-files-config');
