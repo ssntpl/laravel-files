@@ -6,10 +6,9 @@ namespace Ssntpl\LaravelFiles\Cloud;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Storage;
-use Log;
+
 class CloudAdapter implements Filesystem
 {
-
     protected $cacheDisk;
     protected $remoteDisks;
 
@@ -20,76 +19,120 @@ class CloudAdapter implements Filesystem
             return Storage::disk($disk);
         }, $remoteDisks);
     }
+
     // Implement all required methods from the FilesystemAdapter interface
-    function put($path, $contents, $options = []){
-        
-    }
-
-    public function path($path){
+    public function put($path, $contents, $options = [])
+    {
 
     }
-    public function putFile($path, $file = null, $options = []){
+
+    public function path($path)
+    {
 
     }
-    public function putFileAs($path, $file, $name = null, $options = []){
+
+    public function putFile($path, $file = null, $options = [])
+    {
 
     }
-    public function allDirectories($directory = null){
+
+    public function putFileAs($path, $file, $name = null, $options = [])
+    {
 
     }
-    public function allFiles($directory = null){
+
+    public function allDirectories($directory = null)
+    {
 
     }
-    public function append($path, $data){
+
+    public function allFiles($directory = null)
+    {
 
     }
-    public function copy($from, $to){
+
+    public function append($path, $data)
+    {
 
     }
-    public function delete($paths){
+
+    public function copy($from, $to)
+    {
 
     }
-    public function deleteDirectory($directory){
+
+    public function delete($paths)
+    {
 
     }
-    public function directories($directory = null, $recursive = false){
+
+    public function deleteDirectory($directory)
+    {
 
     }
-    public function exists($path){
+
+    public function directories($directory = null, $recursive = false)
+    {
 
     }
-    public function files($directory = null, $recursive = false){
+
+    public function exists($path)
+    {
 
     }
-    public function get($path){
+
+    public function files($directory = null, $recursive = false)
+    {
 
     }
-    public function getVisibility($path){
+
+    public function get($path)
+    {
 
     }
-    public function lastModified($path){
+
+    public function getVisibility($path)
+    {
 
     }
-    public function makeDirectory($path){
+
+    public function lastModified($path)
+    {
 
     }
-    public function move($from, $to){
+
+    public function makeDirectory($path)
+    {
 
     }
-    public function prepend($path, $data){
+
+    public function move($from, $to)
+    {
 
     }
-    public function readStream($path){
+
+    public function prepend($path, $data)
+    {
 
     }
-    public function setVisibility($path, $visibility){
+
+    public function readStream($path)
+    {
 
     }
-    public function size($path){
+
+    public function setVisibility($path, $visibility)
+    {
 
     }
-    public function writeStream($path, $resource, array $options = []){
+
+    public function size($path)
+    {
+
+    }
+
+    public function writeStream($path, $resource, array $options = [])
+    {
 
     }
 }
-    
