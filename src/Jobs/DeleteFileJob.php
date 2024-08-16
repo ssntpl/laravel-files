@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Storage;
 
 class DeleteFileJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     // Set the maximum number of tries
     public $tries = 3;
@@ -37,6 +40,7 @@ class DeleteFileJob implements ShouldQueue
     public function backoff()
     {
         $interval = 1; // Set the interval in seconds for all retries
+
         return array_fill(0, $this->tries - 1, $interval);
     }
 }

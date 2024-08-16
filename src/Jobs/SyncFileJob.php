@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Storage;
 
 class SyncFileJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     protected $path;
 
