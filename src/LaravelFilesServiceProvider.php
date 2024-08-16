@@ -25,7 +25,7 @@ class LaravelFilesServiceProvider extends ServiceProvider
     public function boot()
     {
         \Storage::extend('cloud', function ($app, $config) {
-            return new CloudAdapter($config['cache_disk'], $config['remote_disks']);
+            return new CloudAdapter($config['cache_time'],$config['cache_disk'], $config['remote_disks']);
         });
 
         $this->publishes([
