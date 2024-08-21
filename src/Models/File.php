@@ -72,4 +72,11 @@ class File extends Model
     {
         return $this->url;
     }
+
+    public function delete()
+    {
+        Storage::disk($this->disk)->delete($this->key);
+
+        return parent::delete();
+    }
 }
