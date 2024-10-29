@@ -89,12 +89,12 @@ trait HasFiles
     {
         $type = $type ?: $this->default_file_type;
 
-        return $this->morphOne(File::class, 'owner')->whereType($type)->sole();
+        return $this->morphOne(File::class, 'owner')->whereType($type)->first();
     }
 
     public function getFileAttribute()
     {
-        return $this->files($this->default_file_type)->sole();
+        return $this->files($this->default_file_type)->first();
     }
 
     public function getDefaultFileTypeAttribute()
