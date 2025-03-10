@@ -79,17 +79,17 @@ trait HasFiles
     public function files($type = null)
     {
         if ($type) {
-            return $this->morphMany(File::class, 'owner')->whereType($type);
+            return $this->morphMany(config('files.model', 'Ssntpl\LaravelFiles\Models\File'), 'owner')->whereType($type);
         }
 
-        return $this->morphMany(File::class, 'owner');
+        return $this->morphMany(config('files.model', 'Ssntpl\LaravelFiles\Models\File'), 'owner');
     }
 
     public function file($type = null)
     {
         $type = $type ?: $this->default_file_type;
 
-        return $this->morphOne(File::class, 'owner')->whereType($type)->first();
+        return $this->morphOne(config('files.model', 'Ssntpl\LaravelFiles\Models\File'), 'owner')->whereType($type)->first();
     }
 
     public function getFileAttribute()
