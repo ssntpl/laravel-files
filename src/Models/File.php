@@ -80,9 +80,10 @@ class File extends Model
             ->where('id', '!=', $this->id)
             ->where('disk', $this->disk)
             ->exists();
-        if(! $duplicateExists) {
+        if (! $duplicateExists) {
             Storage::disk($this->disk)->delete($this->key);
         }
+
         return parent::delete();
     }
 }
