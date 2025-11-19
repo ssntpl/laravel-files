@@ -76,11 +76,10 @@ class File extends Model
     public function delete()
     {
         // Check if any *other* record uses the same key
-        $duplicateExists = static::where('name', $this->name)
-            ->where('id', '!=', $this->id)
-            ->where('key', $this->key)
-            ->where('disk', $this->disk)
-            ->exists();
+        $duplicateExists = static::where('key', $this->key)
+                    ->where('disk', $this->disk)
+                    ->where('id', '!=', $this->id)
+                    ->exists();
         if (! $duplicateExists) {
             Storage::disk($this->disk)->delete($this->key);
         }
