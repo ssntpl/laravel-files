@@ -25,7 +25,9 @@ return new class extends Migration
 
             $table->timestamps();
 
+            $table->index(['key', 'disk'], 'files_key_disk_index');
             $table->index('type');
+            $table->index('name');
         });
     }
 };
